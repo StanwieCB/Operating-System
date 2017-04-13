@@ -15,7 +15,6 @@ FILE LIST:
 For problem1:
     1.prinfo.h              ----.h file for my task struct prinfo
     2.ptree.c               ----.c file for my pstree system call 356
-    3.Makefile              ----make file to build the module
 
 For problem2:
     1.prinfo.h              ----.h file for my task struct prinfo
