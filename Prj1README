@@ -1,0 +1,34 @@
+//////////////////////////////////////////////////////////////
+/*
+* This is the README file of Operating System CS356 Project 1
+* author: hank zhang(StanwieCB)
+* student number: 515030910216
+* mail: hankzhangcb@gmail.com
+* last updated: 09-04-2017
+*/
+//////////////////////////////////////////////////////////////
+
+NOTE:the system call id is 233 in my ptree
+
+FILE LIST:
+
+For problem1:
+    1.prinfo.h              ----.h file for my task struct prinfo
+    2.ptree.c               ----.c file for my pstree system call 356
+    3.Makefile	            ----Makefile for my module	 
+
+For problem2:
+    1.prinfo.h              ----.h file for my task struct prinfo
+    2.testptree.c           ----.c file for testing my ptree system call
+    3.problem2-Android.mk   ----.mk file for building the testptreeARM program
+
+For problem3:
+    1.parentchild.c         ----.c file for testing the child-parent process relation
+    2.problem3-Android.mk   ----.mk file for building the parentchildARM program
+
+For problem4:
+    1.BurgerBuddies.c       ----.c file for BBC problem
+    2.problem4-Android.mk   ----.mk file for building the BBCARm program
+
+For testing:
+    1.test-input-output     ----test log of ptree/testptree/parentchild/BBC
