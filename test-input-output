@@ -1,0 +1,777 @@
+//////////////////////////////////////////////////////////////
+/*
+* This is the test log of Operating System CS356 Project 1
+* author: hank zhang(StanwieCB)
+* student number: 515030910216
+* mail: hankzhangcb@gmail.com
+* last updated: 09-04-2017
+*/
+//////////////////////////////////////////////////////////////
+
+FOR PROBLEM 1:
+
+1.module loading:
+	*adb terminal input: 		
+		/data/osprj/problem1 # insmod ptree.ko  
+
+	*adb terminal output: 
+
+  	*kernel terminal ouput: 	
+  		ptree module load!
+
+2.module ending:
+	*adb terminal input: 		
+		/data/osprj/problem1 # rmmod ptree.ko  
+
+	*adb terminal output: 
+
+  	*kernel terminal ouput: 	
+  		ptree module_exit!
+
+
+FOR PROBLEM 2:
+
+1.test my ptree system call:
+	EXCEPTION HANDLING:
+	1) no buffer size included:
+		*adb terminal input: 		
+			/data/osprj/problem2 # ./testptreeARM
+
+		*adb terminal output: 
+			This is a test of pstree!
+			invalid number of arguments!
+
+  		*kernel terminal ouput: 	
+
+  	2) invalid buffer size:
+		*adb terminal input: 		
+			/data/osprj/problem2 # ./testptreeARM a
+
+		*adb terminal output: 
+			This is a test of pstree!
+			invalid buffer size!
+
+		*kernel terminal ouput: 
+
+	VALID INPUT
+	1) small buffer size:
+		*adb terminal input: 		
+			/data/osprj/problem2 # ./testptreeARM 10
+
+		*adb terminal output: 
+			This is a test of pstree!
+			swapper,0,0,0,1,0,0
+				init,1,1,0,45,2,0
+					ueventd,45,1,1,0,61,0
+					logd,61,1,1,0,62,1036
+					vold,62,1,1,0,70,0
+					healthd,70,1,1,0,71,0
+					lmkd,71,1,1,0,72,0
+					servicemanager,72,1,1,0,73,1000
+					surfaceflinger,73,1,1,0,75,1000
+					qemud,75,1,1,0,78,0
+			Test End!
+
+		*kernel terminal ouput: 
+			copy nr success!
+			allocate space for kernel buffer success!
+			ptree success!
+
+	2) big buffer size:
+		*adb terminal input: 		
+			/data/osprj/problem2 # ./testptreeARM 200
+
+		*adb terminal output: 
+			This is a test of pstree!
+			swapper,0,0,0,1,0,0
+				init,1,1,0,45,2,0
+					ueventd,45,1,1,0,61,0
+					logd,61,1,1,0,62,1036
+					vold,62,1,1,0,70,0
+					healthd,70,1,1,0,71,0
+					lmkd,71,1,1,0,72,0
+					servicemanager,72,1,1,0,73,1000
+					surfaceflinger,73,1,1,0,75,1000
+					qemud,75,1,1,0,78,0
+					sh,78,1,1,0,79,2000
+					adbd,79,1,1,1294,80,0
+						sh,1294,1,79,1700,1,0
+							testptreeARM,1700,0,1294,0,1,0
+					netd,80,1,1,0,81,0
+					debuggerd,81,1,1,0,82,0
+					rild,82,1,1,0,83,1001
+					drmserver,83,1,1,0,84,1019
+					mediaserver,84,1,1,0,85,1013
+					installd,85,1,1,0,86,0
+					keystore,86,1,1,0,87,1017
+					main,87,1,1,259,88,0
+						system_server,259,1,87,0,691,1000
+						droid.launcher3,691,1,87,0,730,10007
+						d.process.acore,730,1,87,0,888,10002
+						m.android.phone,888,1,87,0,946,1001
+						droid.deskclock,946,1,87,0,978,10023
+						ndroid.systemui,978,1,87,0,1023,10013
+						.quicksearchbox,1023,1,87,0,1038,10042
+						ndroid.settings,1038,1,87,0,1058,1000
+						d.process.media,1058,1,87,0,1063,10005
+						.android.dialer,1063,1,87,0,1126,10004
+						gedprovisioning,1126,1,87,0,1149,10008
+						putmethod.latin,1149,1,87,0,1163,10032
+						ndroid.calendar,1163,1,87,0,1190,10019
+						m.android.email,1190,1,87,0,1206,10027
+						ndroid.exchange,1206,1,87,0,1,10029
+					gatekeeperd,88,1,1,0,91,1000
+					perfprofd,91,1,1,0,92,0
+					fingerprintd,92,1,1,0,1,1000
+				kthreadd,2,1,0,3,0,0
+					ksoftirqd/0,3,1,2,0,4,0
+					kworker/0:0,4,1,2,0,6,0
+					khelper,6,1,2,0,7,0
+					sync_supers,7,1,2,0,8,0
+					bdi-default,8,1,2,0,9,0
+					kblockd,9,1,2,0,10,0
+					rpciod,10,1,2,0,11,0
+					kworker/0:1,11,1,2,0,12,0
+					kswapd0,12,1,2,0,13,0
+					fsnotify_mark,13,1,2,0,14,0
+					crypto,14,1,2,0,25,0
+					kworker/u:1,25,1,2,0,30,0
+					mtdblock0,30,1,2,0,35,0
+					mtdblock1,35,1,2,0,40,0
+					mtdblock2,40,1,2,0,41,0
+					binder,41,1,2,0,42,0
+					deferwq,42,1,2,0,43,0
+					kworker/u:2,43,1,2,0,44,0
+					mmcqd/0,44,1,2,0,47,0
+					jbd2/mtdblock0-,47,1,2,0,48,0
+					ext4-dio-unwrit,48,1,2,0,53,0
+					jbd2/mtdblock1-,53,1,2,0,54,0
+					ext4-dio-unwrit,54,1,2,0,59,0
+					jbd2/mtdblock2-,59,1,2,0,60,0
+					ext4-dio-unwrit,60,1,2,0,68,0
+					kauditd,68,1,2,0,0,0
+			Test End!
+
+		*kernel terminal ouput: 
+			copy nr success!
+			allocate space for kernel buffer success!
+			ptree success!
+
+
+FOR PROBLEM 3:
+
+1.test parent-child process relation
+	*adb terminal input: 		
+		/data/osprj/problem3 # ./parentchildARM
+
+	*adb terminal output: 
+		testing parent and child relation!
+			This is a child process!
+			515030910216 Child: 1702
+			execl pstree in child process!
+			This is a test of pstree!
+			swapper,0,0,0,1,0,0
+				init,1,1,0,45,2,0
+					ueventd,45,1,1,0,61,0
+					logd,61,1,1,0,62,1036
+					vold,62,1,1,0,70,0
+					healthd,70,1,1,0,71,0
+					lmkd,71,1,1,0,72,0
+					servicemanager,72,1,1,0,73,1000
+					surfaceflinger,73,1,1,0,75,1000
+					qemud,75,1,1,0,78,0
+					sh,78,1,1,0,79,2000
+					adbd,79,1,1,1294,80,0
+						sh,1294,1,79,1701,1,0
+							parentchildARM,1701,1,1294,1702,1,0
+								testptreeARM,1702,0,1701,0,1,0
+					netd,80,1,1,0,81,0
+					debuggerd,81,1,1,0,82,0
+					rild,82,1,1,0,83,1001
+					drmserver,83,1,1,0,84,1019
+					mediaserver,84,1,1,0,85,1013
+					installd,85,1,1,0,86,0
+					keystore,86,1,1,0,87,1017
+					main,87,1,1,259,88,0
+						system_server,259,1,87,0,691,1000
+						droid.launcher3,691,1,87,0,730,10007
+						d.process.acore,730,1,87,0,888,10002
+						m.android.phone,888,1,87,0,946,1001
+						droid.deskclock,946,1,87,0,978,10023
+						ndroid.systemui,978,1,87,0,1023,10013
+						.quicksearchbox,1023,1,87,0,1038,10042
+						ndroid.settings,1038,1,87,0,1058,1000
+						d.process.media,1058,1,87,0,1063,10005
+						.android.dialer,1063,1,87,0,1126,10004
+						gedprovisioning,1126,1,87,0,1149,10008
+						putmethod.latin,1149,1,87,0,1163,10032
+						ndroid.calendar,1163,1,87,0,1190,10019
+						m.android.email,1190,1,87,0,1206,10027
+						ndroid.exchange,1206,1,87,0,1,10029
+					gatekeeperd,88,1,1,0,91,1000
+					perfprofd,91,1,1,0,92,0
+					fingerprintd,92,1,1,0,1,1000
+				kthreadd,2,1,0,3,0,0
+					ksoftirqd/0,3,1,2,0,4,0
+					kworker/0:0,4,1,2,0,6,0
+					khelper,6,1,2,0,7,0
+					sync_supers,7,1,2,0,8,0
+					bdi-default,8,1,2,0,9,0
+					kblockd,9,1,2,0,10,0
+					rpciod,10,1,2,0,11,0
+					kworker/0:1,11,1,2,0,12,0
+					kswapd0,12,1,2,0,13,0
+					fsnotify_mark,13,1,2,0,14,0
+					crypto,14,1,2,0,25,0
+					kworker/u:1,25,1,2,0,30,0
+					mtdblock0,30,1,2,0,35,0
+					mtdblock1,35,1,2,0,40,0
+					mtdblock2,40,1,2,0,41,0
+					binder,41,1,2,0,42,0
+					deferwq,42,1,2,0,43,0
+					kworker/u:2,43,1,2,0,44,0
+					mmcqd/0,44,1,2,0,47,0
+					jbd2/mtdblock0-,47,1,2,0,48,0
+					ext4-dio-unwrit,48,1,2,0,53,0
+					jbd2/mtdblock1-,53,1,2,0,54,0
+					ext4-dio-unwrit,54,1,2,0,59,0
+					jbd2/mtdblock2-,59,1,2,0,60,0
+					ext4-dio-unwrit,60,1,2,0,68,0
+					kauditd,68,1,2,0,0,0
+			Test End!
+			Child process finish!
+			This is a parent process
+			515030910216 Parent: 1701
+
+  	*kernel terminal ouput: 	
+  		copy nr success!
+		allocate space for kernel buffer success!
+		ptree success!
+
+
+FOR PROBLEM 4:
+
+1.test BBC:
+	EXCEPTION HANDLING:
+	1) not enough arguments:
+		*adb terminal input: 		
+			/data/osprj/problem4 # ./BBCARM 1 1 1 
+
+		*adb terminal output: 
+			number of arguments is not correct!
+
+  		*kernel terminal ouput: 	
+
+  	2) invalid cook number:
+		*adb terminal input: 		
+			./BBCARM a 1 1 1
+
+		*adb terminal output: 
+			number of cooks invalid!
+
+		*kernel terminal ouput: 
+
+	3) invalid cashier number:
+		*adb terminal input: 		
+			./BBCARM 1 a 1 1
+
+		*adb terminal output: 
+			number of cashiers invalid!
+
+		*kernel terminal ouput: 
+
+	4) invalid customer number:
+		*adb terminal input: 		
+			./BBCARM 1 1 a 1
+
+		*adb terminal output: 
+			number of customers invalid!
+
+		*kernel terminal ouput: 
+
+	5) invalid rack size:
+		*adb terminal input: 		
+			./BBCARM 1 a 1 1
+
+		*adb terminal output: 
+			rack size invalid!
+
+		*kernel terminal ouput: 
+
+	VALID INPUT:
+	1) small input number1:
+		*adb terminal input: 		
+			/data/osprj/problem4 # ./BBCARM 1 1 1 1       
+
+		*adb terminal output: 
+			**********Burger Buddies Problem simulation begins!**********
+			**********cook:1  cashier:1  customer:1  rack:1***********
+			Customer[1] comes
+			Cashier[1] accpets an order
+			Cook[1] makes a burger
+			Cashier[1] takes a burger to customer
+			**********Burger Buddies Problem simulation finishes!**********
+
+  		*kernel terminal ouput: 	
+
+  	2) small input number2:
+		*adb terminal input: 		
+			/data/osprj/problem4 # ./BBCARM 2 2 10 4       
+
+		*adb terminal output: 
+			**********Burger Buddies Problem simulation begins!**********
+			**********cook:2  cashier:2  customer:10  rack:4***********
+			Customer[4] comes
+			Customer[1] comes
+			Cashier[2] accpets an order
+			Customer[9] comes
+			Customer[10] comes
+			Customer[8] comes
+			Customer[7] comes
+			Customer[6] comes
+			Customer[5] comes
+			Customer[2] comes
+			Cook[2] makes a burger
+			Cashier[2] takes a burger to customer
+			Cashier[2] accpets an order
+			Cook[1] makes a burger
+			Cashier[2] takes a burger to customer
+			Cashier[2] accpets an order
+			Customer[3] comes
+			Cook[2] makes a burger
+			Cashier[2] takes a burger to customer
+			Cashier[2] accpets an order
+			Cook[1] makes a burger
+			Cashier[2] takes a burger to customer
+			Cashier[2] accpets an order
+			Cashier[2] takes a burger to customer
+			Cashier[2] accpets an order
+			Cook[1] makes a burger
+			Cashier[2] takes a burger to customer
+			Cashier[2] accpets an order
+			Cook[2] makes a burger
+			Cook[1] makes a burger
+			Cashier[2] takes a burger to customer
+			Cashier[2] accpets an order
+			Cook[2] makes a burger
+			Cashier[2] takes a burger to customer
+			Cashier[2] accpets an order
+			Cook[1] makes a burger
+			Cashier[2] takes a burger to customer
+			Cashier[2] accpets an order
+			Cook[2] makes a burger
+			Cashier[2] takes a burger to customer
+			**********Burger Buddies Problem simulation finishes!**********
+
+  		*kernel terminal ouput: 	
+
+  	3) big input number1:
+		*adb terminal input: 		
+			/data/osprj/problem4 # ./BBCARM 20 14 100 30       
+
+		*adb terminal output: 
+			**********Burger Buddies Problem simulation begins!**********
+			**********cook:20  cashier:14  customer:100  rack:30***********
+			Customer[6] comes
+			Cashier[11] accpets an order
+			Customer[10] comes
+			Cashier[13] accpets an order
+			Customer[17] comes
+			Cashier[3] accpets an order
+			Customer[43] comes
+			Cashier[6] accpets an order
+			Customer[33] comes
+			Cashier[7] accpets an order
+			Customer[34] comes
+			Cashier[14] accpets an order
+			Customer[46] comes
+			Cashier[2] accpets an order
+			Customer[49] comes
+			Cashier[5] accpets an order
+			Customer[38] comes
+			Cashier[10] accpets an order
+			Customer[28] comes
+			Cashier[4] accpets an order
+			Customer[24] comes
+			Cashier[8] accpets an order
+			Customer[53] comes
+			Cashier[9] accpets an order
+			Customer[54] comes
+			Cashier[12] accpets an order
+			Customer[64] comes
+			Cashier[1] accpets an order
+			Customer[69] comes
+			Customer[74] comes
+			Customer[77] comes
+			Customer[78] comes
+			Customer[51] comes
+			Customer[65] comes
+			Customer[76] comes
+			Customer[75] comes
+			Customer[79] comes
+			Customer[62] comes
+			Customer[58] comes
+			Customer[57] comes
+			Customer[99] comes
+			Customer[88] comes
+			Cook[13] makes a burger
+			Cashier[11] takes a burger to customer
+			Cashier[11] accpets an order
+			Cook[18] makes a burger
+			Cashier[11] takes a burger to customer
+			Cashier[11] accpets an order
+			Customer[5] comes
+			Cook[15] makes a burger
+			Customer[1] comes
+			Customer[2] comes
+			Cook[14] makes a burger
+			Cook[20] makes a burger
+			Customer[3] comes
+			Customer[4] comes
+			Customer[7] comes
+			Cook[16] makes a burger
+			Cook[17] makes a burger
+			Cook[19] makes a burger
+			Cook[12] makes a burger
+			Cook[11] makes a burger
+			Cook[10] makes a burger
+			Cook[9] makes a burger
+			Cook[8] makes a burger
+			Cook[7] makes a burger
+			Cook[6] makes a burger
+			Cook[5] makes a burger
+			Cook[4] makes a burger
+			Cook[3] makes a burger
+			Cook[2] makes a burger
+			Cashier[11] takes a burger to customer
+			Cashier[11] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[3] takes a burger to customer
+			Cashier[6] takes a burger to customer
+			Cashier[7] takes a burger to customer
+			Cashier[14] takes a burger to customer
+			Cashier[2] takes a burger to customer
+			Cashier[5] takes a burger to customer
+			Cashier[10] takes a burger to customer
+			Cashier[4] takes a burger to customer
+			Cashier[8] takes a burger to customer
+			Cashier[9] takes a burger to customer
+			Cashier[12] takes a burger to customer
+			Cashier[1] takes a burger to customer
+			Cook[1] makes a burger
+			Customer[9] comes
+			Customer[11] comes
+			Customer[12] comes
+			Customer[14] comes
+			Customer[16] comes
+			Customer[18] comes
+			Customer[44] comes
+			Customer[31] comes
+			Customer[39] comes
+			Customer[42] comes
+			Customer[45] comes
+			Customer[29] comes
+			Customer[25] comes
+			Customer[19] comes
+			Customer[20] comes
+			Customer[66] comes
+			Customer[71] comes
+			Customer[70] comes
+			Customer[61] comes
+			Customer[56] comes
+			Customer[55] comes
+			Customer[83] comes
+			Customer[96] comes
+			Customer[67] comes
+			Customer[98] comes
+			Customer[84] comes
+			Customer[91] comes
+			Customer[89] comes
+			Customer[85] comes
+			Customer[94] comes
+			Cook[13] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[18] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[15] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[14] makes a burger
+			Cook[20] makes a burger
+			Cook[16] makes a burger
+			Cook[17] makes a burger
+			Cook[19] makes a burger
+			Cook[12] makes a burger
+			Cook[11] makes a burger
+			Cook[10] makes a burger
+			Cook[9] makes a burger
+			Cook[8] makes a burger
+			Cook[7] makes a burger
+			Cook[6] makes a burger
+			Cook[5] makes a burger
+			Cook[4] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[3] makes a burger
+			Cook[2] makes a burger
+			Cashier[3] accpets an order
+			Cashier[6] accpets an order
+			Cashier[7] accpets an order
+			Cashier[14] accpets an order
+			Cashier[2] accpets an order
+			Cashier[5] accpets an order
+			Cashier[10] accpets an order
+			Cashier[4] accpets an order
+			Cashier[8] accpets an order
+			Cashier[9] accpets an order
+			Cashier[12] accpets an order
+			Cashier[1] accpets an order
+			Cashier[11] takes a burger to customer
+			Customer[8] comes
+			Cook[1] makes a burger
+			Customer[13] comes
+			Customer[15] comes
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Customer[30] comes
+			Customer[48] comes
+			Customer[35] comes
+			Customer[50] comes
+			Customer[32] comes
+			Customer[40] comes
+			Customer[37] comes
+			Customer[36] comes
+			Customer[47] comes
+			Customer[41] comes
+			Customer[27] comes
+			Customer[26] comes
+			Customer[23] comes
+			Customer[22] comes
+			Customer[21] comes
+			Customer[52] comes
+			Customer[82] comes
+			Customer[68] comes
+			Customer[73] comes
+			Customer[81] comes
+			Customer[80] comes
+			Customer[72] comes
+			Customer[63] comes
+			Customer[60] comes
+			Customer[59] comes
+			Customer[95] comes
+			Customer[100] comes
+			Customer[97] comes
+			Customer[93] comes
+			Customer[92] comes
+			Customer[90] comes
+			Customer[87] comes
+			Customer[86] comes
+			Cook[13] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[18] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[15] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[14] makes a burger
+			Cook[20] makes a burger
+			Cook[16] makes a burger
+			Cook[17] makes a burger
+			Cook[19] makes a burger
+			Cook[12] makes a burger
+			Cook[11] makes a burger
+			Cook[10] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[8] makes a burger
+			Cook[7] makes a burger
+			Cook[6] makes a burger
+			Cook[5] makes a burger
+			Cook[4] makes a burger
+			Cook[3] makes a burger
+			Cook[2] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[1] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[9] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[13] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[18] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[15] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[14] makes a burger
+			Cook[20] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[16] makes a burger
+			Cook[17] makes a burger
+			Cook[19] makes a burger
+			Cook[12] makes a burger
+			Cook[11] makes a burger
+			Cook[10] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cook[8] makes a burger
+			Cook[7] makes a burger
+			Cook[6] makes a burger
+			Cook[5] makes a burger
+			Cook[4] makes a burger
+			Cook[3] makes a burger
+			Cook[2] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[13] accpets an order
+			Cashier[3] takes a burger to customer
+			Cashier[6] takes a burger to customer
+			Cashier[7] takes a burger to customer
+			Cashier[14] takes a burger to customer
+			Cashier[2] takes a burger to customer
+			Cashier[5] takes a burger to customer
+			Cook[1] makes a burger
+			Cashier[10] takes a burger to customer
+			Cashier[10] accpets an order
+			Cook[9] makes a burger
+			Cashier[10] takes a burger to customer
+			Cashier[10] accpets an order
+			Cook[13] makes a burger
+			Cashier[10] takes a burger to customer
+			Cashier[10] accpets an order
+			Cook[18] makes a burger
+			Cashier[10] takes a burger to customer
+			Cashier[10] accpets an order
+			Cook[15] makes a burger
+			Cashier[10] takes a burger to customer
+			Cashier[10] accpets an order
+			Cook[14] makes a burger
+			Cook[20] makes a burger
+			Cashier[10] takes a burger to customer
+			Cashier[10] accpets an order
+			Cashier[10] takes a burger to customer
+			Cashier[10] accpets an order
+			Cook[16] makes a burger
+			Cook[17] makes a burger
+			Cook[19] makes a burger
+			Cook[12] makes a burger
+			Cook[11] makes a burger
+			Cook[10] makes a burger
+			Cashier[10] takes a burger to customer
+			Cashier[10] accpets an order
+			Cashier[10] takes a burger to customer
+			Cashier[10] accpets an order
+			Cashier[10] takes a burger to customer
+			Cashier[10] accpets an order
+			Cashier[10] takes a burger to customer
+			Cashier[10] accpets an order
+			Cashier[10] takes a burger to customer
+			Cashier[10] accpets an order
+			Cashier[10] takes a burger to customer
+			Cashier[10] accpets an order
+			Cook[8] makes a burger
+			Cook[7] makes a burger
+			Cook[6] makes a burger
+			Cook[5] makes a burger
+			Cook[4] makes a burger
+			Cook[3] makes a burger
+			Cook[2] makes a burger
+			Cashier[4] takes a burger to customer
+			Cashier[4] accpets an order
+			Cashier[4] takes a burger to customer
+			Cashier[4] accpets an order
+			Cashier[4] takes a burger to customer
+			Cashier[8] takes a burger to customer
+			Cashier[9] takes a burger to customer
+			Cashier[12] takes a burger to customer
+			Cook[1] makes a burger
+			Cashier[1] takes a burger to customer
+			Cook[9] makes a burger
+			Cashier[13] takes a burger to customer
+			Cashier[10] takes a burger to customer
+			**********Burger Buddies Problem simulation finishes!**********
+			
+  		*kernel terminal ouput: 
