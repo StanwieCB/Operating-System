@@ -1,0 +1,8 @@
+changes:
+/mm/vmscan.c   	page_check_references: 	line 755, line 790-792, line 805
+			 	shrink_active_list:		line 1807
+/mm/swap.c 	   	mark_page_access:		line 373
+				lru_deactivate_fn		line 478
+/include/linux/mm_type.h  				line 41:  unsigned long my_PG_ref;
+/include/linux/mm.h						line 945: extern
+/mm/pagewalk.c 							line 251: EXPORT_SYMBOL

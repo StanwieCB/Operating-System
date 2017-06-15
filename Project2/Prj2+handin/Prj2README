@@ -1,0 +1,26 @@
+In repo codes:
+==================================================================
+each folder contains corresponding .c .h files and all make files.
+1.layout:
+codes for the first system call
+2.expose:
+codes for the second system call
+3.VATranslate:
+codes for VATranslate
+4.vm+inspectcor:
+codes for vm_inspector
+5.problem4+test:
+codes for problem4 test program
+6.memlog:
+codes for problem4 memory info recording program
+
+In repo kernel+files:
+==================================================================
+1.all kernel files modified
+2.one changes.txt for detailed change information and path
+
+In repo test:
+==================================================================
+each folder contains screen shots of testing
+except for page+replace+algo contains 5 memory tracing log of 
+problem4 test.
